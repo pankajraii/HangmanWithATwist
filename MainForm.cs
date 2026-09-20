@@ -8,7 +8,6 @@ namespace HangmanTwist
 {
     public class MainForm : Form
     {
-        // Word pools by difficulty
         private readonly string[] easyWords = { "cat", "dog", "sun", "book", "tree", "fish", "ball", "milk" };
         private readonly string[] mediumWords = { "castle", "guitar", "planet", "bridge", "dragon", "puzzle", "forest" };
         private readonly string[] hardWords = { "xylophone", "chrysalis", "labyrinth", "quixotic", "bureaucracy", "zeitgeist" };
@@ -22,7 +21,6 @@ namespace HangmanTwist
         private int wrongGuesses = 0;
         private bool gameOver = false;
 
-        // UI controls
         private Label lblCategory;
         private Label lblHangmanArt;
         private Label lblWordDisplay;
@@ -113,7 +111,6 @@ namespace HangmanTwist
             };
             btnNewGame.Click += (s, e) => StartNewGame();
 
-            // Create A-Z letter buttons
             for (char c = 'A'; c <= 'Z'; c++)
             {
                 char letter = c;
@@ -166,14 +163,13 @@ namespace HangmanTwist
 
             if (guessedLetters.Contains(lowerLetter))
             {
-                return; // already guessed, shouldn't happen since button gets disabled
+                return;
             }
 
             guessedLetters.Add(lowerLetter);
 
             if (currentWord.Contains(lowerLetter))
             {
-                // Correct guess
                 if (currentWord.All(c => guessedLetters.Contains(c)))
                 {
                     gameOver = true;
@@ -184,7 +180,6 @@ namespace HangmanTwist
             }
             else
             {
-                // Wrong guess
                 wrongGuesses++;
 
                 if (wrongGuesses >= MaxWrongGuesses)
@@ -196,7 +191,6 @@ namespace HangmanTwist
                 }
                 else
                 {
-                    // TWIST: shift category based on wrong guess count
                     string newCategory = GetCategoryForWrongCount(wrongGuesses);
 
                     if (newCategory != currentCategory)
